@@ -26,3 +26,22 @@ const createWithdrawal = (account, amount) => {
         }
     }
 }
+
+// Reducer
+const accounts = (state=defaultState, action) => {
+    switch (action.type) {
+        case 'deposit':
+            return {
+                ...state,
+                [action.payload.account]: state[action.payload.account] + action.payload.amount
+            }
+        case 'withdrawal':
+            return{
+                ...state,
+                [action.payload.account]: state[action.payload.account] - action.payload.amount
+            }
+        default:
+            return state;
+    }
+}
+
