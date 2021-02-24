@@ -73,7 +73,8 @@ window.createWithdrawal = createWithdrawal;
 
 const depositButton = document.querySelector('#deposit');
 const withdrawalButton = document.querySelector('#withdrawal');
-const rbs = document.querySelectorAll('input[name="accountChoice"]');
+const transferButton = document.querySelector('#transfer');
+const rbs = document.querySelectorAll('#account');
 const amount = document.querySelector('#amount');
 
 
@@ -101,4 +102,27 @@ withdrawalButton.addEventListener('click', (event) => {
     }
     const amountValue = parseInt(amount.value);
     store.dispatch(createWithdrawal(selectedAccount, amountValue))
+});
+
+transferButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    let selectedAccount;
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedAccount = rb.value;
+            break;
+        }
+    }
+    const amountValue = parseInt(amount.value);
+    console.log("selected account is", selectedAccount)
+    switch (selectedAccount) {
+        case 'checking':
+            store.dispatch(createWithdrawal('checking', amountValue));
+            store.dispatch(createDeposit('savings', amountValue));
+            break;
+        case 'savings':
+            store.dispatch(createWithdrawal('savings', amountValue));
+            store.dispatch(createDeposit('checking', amountValue));
+            break;
+    }
 });
