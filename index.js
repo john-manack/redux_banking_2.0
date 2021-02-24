@@ -61,6 +61,10 @@ store.subscribe(() => {
     console.log('=== state has updated ===');
     const state = store.getState();
     console.log(state)
+    const checkingBalance = document.querySelector('#checking');
+    const savingsBalance = document.querySelector('#savings');
+    checkingBalance.innerHTML = state.checking;
+    savingsBalance.innerHTML = state.savings;
 });
 
 window.store = store;
@@ -69,10 +73,32 @@ window.createWithdrawal = createWithdrawal;
 
 const depositButton = document.querySelector('#deposit');
 const withdrawalButton = document.querySelector('#withdrawal');
-const accountSelection = document.querySelectorAll('#account');
-console.log("Account Selection is: ", accountSelection.value)
+const rbs = document.querySelectorAll('input[name="accountChoice"]');
+const amount = document.querySelector('#amount');
 
 
 depositButton.addEventListener('click', (event) => {
     event.preventDefault();
-})
+    let selectedAccount;
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedAccount = rb.value;
+            break;
+        }
+    }
+    const amountValue = parseInt(amount.value);
+    store.dispatch(createDeposit(selectedAccount, amountValue))
+});
+
+withdrawalButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    let selectedAccount;
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedAccount = rb.value;
+            break;
+        }
+    }
+    const amountValue = parseInt(amount.value);
+    store.dispatch(createWithdrawal(selectedAccount, amountValue))
+});
