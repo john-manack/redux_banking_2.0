@@ -7,7 +7,20 @@
     <title>Redux Banking App 2.0</title>
 </head>
 <body>
-    
+    <h1>Redux Banking App 2.0</h1>
+    <p>Checking Balance: $<span id="checking">100</span></p>
+    <p>Savings Balance: $<span id="savings">100</span></p>
+    <form>
+        <label>Checking
+            <input type="radio" id="account" name="account" value="checking">
+        </label>
+        <label>Savings
+            <input type="radio" id="account" name="account" value="savings">
+        </label>
+        <input id="amount" type="number" placeholder="Enter amount" required>
+        <button type="button" id="deposit">Deposit</button>
+        <button type="button" id="withdrawal">Withdrawal</button>
+    </form>
 </body>
 <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 <script src="index.js" type="module"></script>
